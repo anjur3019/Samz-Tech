@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anjum's Portfolio</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background: rgb(219, 219, 205);
+            width: 100%;
+            padding: 15px 20px; /* Default padding for mobile */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        nav .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        nav .logo a {
+            color: rgb(73, 61, 33);
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            color: rgb(73, 61, 33);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px 15px;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            background: rgba(255, 255, 255, 0.356);
+            border-radius: 5px;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger .line {
+            width: 25px;
+            height: 3px;
+            background-color: rgb(73, 61, 33);
+            margin: 4px 0;
+        }
+
+        /* Hidden Checkbox for Toggle */
+        #menu-toggle {
+            display: none;
+        }
+
+        /* Desktop Padding */
+        @media (min-width: 769px) {
+            nav {
+                padding: 15px 400px; /* Add padding only for desktop */
+            }
+        }
+
+        /* Mobile Navigation */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            nav ul {
+                display: none;
+                flex-direction: column;
+                background: rgb(219, 219, 205);
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                padding: 10px 0;
+            }
+
+            #menu-toggle:checked ~ ul {
+                display: flex;
+            }
+
+            nav ul li a {
+                padding: 12px 20px;
+                text-align: center;
+            }
+        }
+
+        /* Main Content */
+        main {
+            width: 90%;
+            margin: 80px auto 20px;
+            padding: 20px;
+        }
+
+        @media (min-width: 769px) {
+            main {
+                width: 60%;
+            }
+        }
+
+        section {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        h1, h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Education Section */
+        #education .education-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: auto;
+        }
+
+        #education .education-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #education .education-table th, #education .education-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        #education .education-table th {
+            background-color: rgb(219, 219, 205);
+            color: rgb(73, 61, 33);
+        }
+
+        /* Projects Section */
+        #projects div {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            max-width: 600px; /* Limit width for desktop */
+            margin-left: auto; /* Center the boxes */
+            margin-right: auto; /* Center the boxes */
+        }
+
+        #projects a {
+            color: rgb(73, 61, 33);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        #projects a:hover {
+            text-decoration: underline;
+        }
+
+        /* Video Section */
+        #video {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .video-container {
+            position: relative;
+            width: 80%;
+            max-width: 900px;
+            margin: auto;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        @media (max-width: 768px) {
+            .video-container {
+                width: 100%;
+                padding-bottom: 70%;
+            }
+        }
+
+        /* Audio Section */
+        #audio {
+            text-align: center;
+            padding: 20px;
+        }
+
+        audio {
+            width: 100%;
+            max-width: 500px;
+            margin-top: 20px;
+        }
+
+        /* Contact Form */
+        #contact form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            margin: auto;
+        }
+
+        #contact input, #contact textarea {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: block;
+        }
+
+        #contact textarea {
+            resize: none;
+            height: 100px;
+        }
+
+        #contact input[type="submit"] {
+            background: rgb(219, 219, 205);
+            color: rgb(73, 61, 33);
+            border: none;
+            cursor: pointer;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        #contact input[type="submit"]:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo"><a href="#">Anjum's Portfolio</a></div>
+        <label for="menu-toggle" class="hamburger">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </label>
+        <input type="checkbox" id="menu-toggle">
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <section id="about">
+            <h2>About Me</h2>
+            <p>I'm Anjum Rasheed, a front-end development intern passionate about building responsive and user-friendly web interfaces.</p>
+        </section>
+
+        <section id="audio">
+            <h2>Background Music</h2>
+            <p>Enjoy some background music while browsing my portfolio:</p>
+            <audio controls>
+                <source src="background-music.mp3.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </section>
+
+        <section id="education">
+            <h2>My Education</h2>
+            <div class="education-container">
+                <table class="education-table">
+                    <tr>
+                        <th>Qualification</th>
+                        <th>Year</th>
+                    </tr>
+                    <tr>
+                        <td>BS Software Engineering (Continuing)</td>
+                        <td>Ongoing</td>
+                    </tr>
+                    <tr>
+                        <td>BA</td>
+                        <td>2019</td>
+                    </tr>
+                    <tr>
+                        <td>FSC Pre-Medical</td>
+                        <td>2016</td>
+                    </tr>
+                    <tr>
+                        <td>Matric</td>
+                        <td>2014</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>Projects</h2>
+            <p>Here are some of my notable projects:</p>
+            <div>
+                <h3>Business Website - WABS Tech</h3>
+                <p>A business website I created for WABS Tech.</p>
+                <a href="https://www.wabstech.com" target="_blank">Visit Wabs Tech</a>
+            </div>
+            <div>
+                <h3>FQMS Software Website</h3>
+                <p>A website for FQMS software house showcasing their installment ERP software.</p>
+                <a href="https://installmentsoftware.net" target="_blank">Visit FQMS Installment Software</a>
+            </div>
+        </section>
+
+        <section id="video">
+            <h2>My Video</h2>
+            <p>FQMS offers software for the Distribution Business</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/ElqKu5o_eTs" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Contact Me</h2>
+            <form>
+                <input type="text" name="name" placeholder="Your Name" required><br>
+                <input type="email" name="email" placeholder="Your Email" required><br>
+                <textarea name="message" placeholder="Your Message" rows="3" required></textarea><br>
+                <input type="submit" value="Send Message">
+            </form>
+        </section>
+
+        <section>
+            <h2>My GitHub Website</h2>
+            <a href="https://anjur3019.github.io/Samz-Tech/assignment-3/index3.html" target="_blank">Visit My GitHub Website</a>
+        </section>
+    </main>
+</body>
+</html>
